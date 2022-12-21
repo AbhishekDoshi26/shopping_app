@@ -1,0 +1,3 @@
+[submodule "agora-token-service"]
+	path = agora-token-service
+	url = https://git.heroku.com/agora-token-service-somnio.git
