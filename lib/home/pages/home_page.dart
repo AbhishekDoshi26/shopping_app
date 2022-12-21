@@ -29,75 +29,80 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Shopping App'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: _products.length,
-          itemBuilder: (context, index) => InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ProductDetail(productResponse: _products[index]),
-                ),
-              );
-            },
-            child: Card(
-              elevation: 10,
-              child: Padding(
-                padding: const EdgeInsets.all(50.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.network(
-                      _products[index].image,
-                      height: 200,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 220,
-                          child: Text(
-                            _products[index].title,
-                            style: const TextStyle(
-                              fontSize: 20,
-                            ),
+      body: _products.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: _products.length,
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProductDetail(productResponse: _products[index]),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    elevation: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.all(50.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.network(
+                            _products[index].image,
+                            height: 200,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '${_products[index].price} /-',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey.shade700,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 220,
+                                child: Text(
+                                  _products[index].title,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
                               ),
-                            ),
-                            Text(
-                              '${_products[index].rating.rate} ⭐️',
-                              style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey,
+                              const SizedBox(
+                                height: 20,
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${_products[index].price} /-',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.grey.shade700,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${_products[index].rating.rate} ⭐️',
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }
